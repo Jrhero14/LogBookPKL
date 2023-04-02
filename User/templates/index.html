@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+   <meta charset="utf-8">
+   <title>Logbook - Homepage</title>
+
+   <!-- mobile responsive meta -->
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+   <meta name="description" content="This is meta description">
+   <meta name="author" content="Themefisher">
+ 
+   <!-- theme meta -->
+   <meta name="theme-name" content="logbook" />
+
+   <!-- plugins -->
+   <link rel="preload" href="https://fonts.gstatic.com/s/opensans/v18/mem8YaGs126MiZpBA-UFWJ0bbck.woff2" style="font-display: optional;">
+   <link rel="stylesheet" href="{% static 'plugins/bootstrap/bootstrap.min.css' %}">
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:600%7cOpen&#43;Sans&amp;display=swap" media="screen">
+
+   <link rel="stylesheet" href="{% static 'plugins/themify-icons/themify-icons.css' %}">
+   <link rel="stylesheet" href="{% static 'plugins/slick/slick.css' %}">
+
+   <!-- Main Stylesheet -->
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+   <!--Favicon-->
+   <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+   <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+</head>
+
+<body>
+<!-- navigation -->
+<header class="sticky-top bg-white border-bottom border-default">
+   <div class="container">
+
+      <nav class="navbar navbar-expand-lg navbar-white">
+         <a class="navbar-brand" href="index.html">
+            <img class="img-fluid" width="200px" src="{% static 'images/logo.png' %}" alt="LogBook">
+         </a>
+         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
+            <i class="ti-menu"></i>
+         </button>
+
+         <div class="collapse navbar-collapse text-center" id="navigation">
+         </div>
+      </nav>
+   </div>
+</header>
+<!-- /navigation -->
+
+<section class="section">
+	<div class="container">
+
+      <div class="pb-5">
+         <form action="/newLog/" method="POST">
+             {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Tanggal</label>
+              <input type="date" class="form-control" id="InputDate" name="Date" aria-describedby="TanggalField">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Kegiatan</label>
+              <div class="form-floating">
+               <textarea class="form-control" placeholder="Masukan Kegiatanmu" id="floatingTextarea" rows="8" name="Log"></textarea>
+             </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+      </div>
+
+		<div class="row">
+			<div class="container-fluid col-lg-8  mb-5 mb-lg-0">
+				{% for logBooks in logData %}
+                    <article class="row mb-5">
+					<div class="col-12 mx-auto">
+						<h3><a class="post-title" href="post-elements.html">{{ logBooks.dateLog }}</a></h3>
+						<ul class="list-inline post-meta mb-4">
+							<li class="list-inline-item"><i class="ti-user mr-2"></i>
+								<a href="author.html">Jeremi</a>
+							</li>
+						</ul>
+						<p>{{ logBooks.logDiary }}</p> <a href="post-elements.html" class="btn btn-outline-primary">Continue Reading</a>
+					</div>
+				</article>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+
+   <footer class="section-sm pb-0 border-top border-default">
+      <div class="container">
+         <div class="row justify-content-between">
+            <a class="mb-4 d-block" href="index.html">
+                  <img class="img-fluid" width="150px" src="{% static 'images/logo.png' %}" alt="LogBook">
+               </a>
+               <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+            </div>
+         </div>
+         <div class="scroll-top">
+            <a href="javascript:void(0);" id="scrollTop"><i class="ti-angle-up"></i></a>
+         </div>
+         <div class="text-center">
+            <p class="content">&copy; 2020 - Design &amp; Develop By <a href="https://themefisher.com/" target="_blank">Themefisher</a></p>
+         </div>
+      </div>
+   </footer>
+
+
+   <!-- JS Plugins -->
+   <script src="{% static 'plugins/jQuery/jquery.min.js' %}"></script>
+   <script src="{% static 'plugins/bootstrap/bootstrap.min.js' %}" async></script>
+   <script src="{% static 'plugins/slick/slick.min.js' %}"></script>
+
+   <!-- Main Script -->
+   <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

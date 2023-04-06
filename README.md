@@ -7,4 +7,4 @@ App ini terinspirasi dari logbook web MBKM.
 ### Web App Interface:
 
 ![img.png](readmefiles/img/img.png)
-![img_1.png](readmefiles/img/img_1.png)
+![img.png](readmefiles/img/img_1.png)

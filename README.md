@@ -5,6 +5,7 @@ Berawal saya yang akan melakukan PKL di bulan April 2023. Saya berencana untuk m
 App ini terinspirasi dari logbook web MBKM.
 
 ### Web App Interface:
+link demo : https://web-production-7d55.up.railway.app/
 
 ![img.png](readmefiles/img/img.png)
 ![img.png](readmefiles/img/img_1.png)

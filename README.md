@@ -8,3 +8,4 @@ App ini terinspirasi dari logbook web MBKM.
 
 ![img.png](readmefiles/img/img.png)
 ![img.png](readmefiles/img/img_1.png)
+![img.png](readmefiles/img/img_2.png)

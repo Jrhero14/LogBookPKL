@@ -44,7 +44,6 @@
             <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
                <i class="ti-menu"></i>
             </button>
-
             <div class="collapse navbar-collapse text-center" id="navigation">
             </div>
          </nav>
@@ -59,7 +58,7 @@
             <p class="h3">Jangan lupa isi LogBook PKL-mu</p>
          </div>
          <div class="pb-5">
-            <form action="/newLog/" method="POST">
+            <form action="/newLog/" method="POST" enctype="multipart/form-data">
                {% csrf_token %}
                <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Tanggal</label>
@@ -71,6 +70,10 @@
                      <textarea class="form-control" placeholder="Masukan Kegiatanmu" id="floatingTextarea" rows="8"
                         name="Log"></textarea>
                   </div>
+               </div>
+               <div class="mb-3">
+                  <label for="formFile" class="form-label">*Optional Documentation</label>
+                  <input class="form-control" type="file" id="file" accept="image/*" name="file" multiple>
                </div>
                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
@@ -100,8 +103,9 @@
                         <!-- modal delete footer -->
                         <div class="modal-footer">
                            <form action="/delLog/" method="POST">
-                               {% csrf_token %}
-                              <button type="submit" class="btn btn-danger" name="delete-id" value="{{ logBooks.id }}">Yes</button>
+                              {% csrf_token %}
+                              <button type="submit" class="btn btn-danger" name="delete-id"
+                                 value="{{ logBooks.id }}">Yes</button>
                            </form>
                            <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
                         </div>
@@ -120,7 +124,7 @@
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- body modal -->
-                        <form action="/editLog/" method="POST">
+                        <form action="/editLog/" method="POST" enctype="multipart/form-data">
                            {% csrf_token %}
                            <input type="text" name="edit-log-id" value="{{ logBooks.id }}" hidden>
                            <div class="modal-body">
@@ -128,18 +132,65 @@
                                  <label for="log-date" class="col-form-label">Tanggal</label>
                                  <h3>{{ logBooks.dateLog }}</h3>
                                  <input name="tanggal-edit" type="date" class="form-control" id="log-date"
-                                    value="{{ logBooks.dateLog | date:"Y-m-d" }}">
+                                    value="{{ logBooks.dateLog | date:'Y-m-d' }}">
                               </div>
                               <div class="mb-3">
                                  <label for="message-text" class="col-form-label">LogBook</label>
                                  <textarea name="log-edit" class="form-control" id="message-text"
                                     rows="10">{{ logBooks.logDiary }}</textarea>
                               </div>
+                              <hr class="my-4">
+                              <div class="mb-3">
+                                 <h4 class="text-center mb-5">Files Documentation</h4>
+                                 {% for img in logBooks.filesDocumentation.all %}
+                                 <div class="d-flex justify-content-between align-items-center my-3">
+                                    <p class="h5">{{ img.filename }}</p>
+                                 </div>
+                                 <img
+                                    class="img-fluid p-3 bg-info bg-opacity-10 border border-info border-start-0 rounded-end"
+                                    src="{% static 'images/documentation/' %}{{ img.dirname }}/{{ img.filename }}"
+                                    alt="" srcset="">
+                                 <hr>
+                                 {% endfor %}
+                                 <label for="formFile" class="form-label">*Optional Documentation</label>
+                                 <input class="form-control" type="file" id="file" accept="image/*" name="file-edit"
+                                    multiple>
+                              </div>
                            </div>
                            <!-- footer modal -->
                            <div class="modal-footer">
                               <button type="submit" class="btn btn-success">Submit</button>
                            </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+
+               <!-- Modal View -->
+               <div id="ViewModal{{ logBooks.id }}" class="modal fade" role="dialog">
+                  <div class="modal-lg modal-dialog modal-dialog-centered">
+                     <!-- konten modal-->
+                     <div class="modal-content">
+                        <!-- heading modal -->
+                        <div class="modal-header">
+                           <h4 class="modal-title fs-5">View LogBook</h4>
+                           <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- body modal -->
+                        <div class=" container">
+                           <h3 class="my-3">{{ logBooks.dateLog }}</h3>
+                           <p>{{ logBooks.logDiary }}</p>
+                           <h5 class="text-center my-3">Files Documentation</h5>
+                           {% for img in logBooks.filesDocumentation.all %}
+                           <img class="img-fluid"
+                              src="{% static 'images/documentation/' %}{{ img.dirname }}/{{ img.filename }}" alt=""
+                              srcset="">
+                           {% endfor %}
+                        </div>
+                        <!-- footer modal -->
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        </div>
                         </form>
                      </div>
                   </div>
@@ -169,8 +220,9 @@
                            <a href="author.html">Jeremi</a>
                         </li>
                      </ul>
-                     <p>{{ logBooks.logDiary }}</p> <a href="post-elements.html"
-                        class="btn btn-outline-primary">Continue Reading</a>
+                     <p>{{ logBooks.logDiary }}</p>
+                     <button type="button" class="btn btn-outline-warning mb-3" data-toggle="modal"
+                        data-target="#ViewModal{{ logBooks.id }}">View</button>
                   </div>
                </article>
                {% endfor %}

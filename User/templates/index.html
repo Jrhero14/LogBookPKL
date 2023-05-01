@@ -36,15 +36,22 @@
    <!-- navigation -->
    <header class="sticky-top bg-white border-bottom border-default">
       <div class="container">
-
          <nav class="navbar navbar-expand-lg navbar-white">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="/">
                <img class="img-fluid" width="200px" src="{% static 'images/logo.png' %}" alt="LogBook">
             </a>
-            <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navigation">
-               <i class="ti-menu"></i>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+               aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse text-center" id="navigation">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+               <div class="navbar-nav" style="margin-left:auto">
+                  <p style="margin-right: 25px; margin-top:10px">{{ user }}</p>
+                  <form action="/logout/" method="POST">
+                     {% csrf_token %}
+                     <button class="btn btn-danger" style="margin-top:3px" href="#" type="submit">Logout</button>
+                  </form>
+               </div>
             </div>
          </nav>
       </div>
@@ -237,8 +244,8 @@
             <a class="mb-4 d-block" href="index.html">
                <img class="img-fluid" width="150px" src="{% static 'images/logo.png' %}" alt="LogBook">
             </a>
-            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
-               et dolore magna aliquyam erat, sed diam voluptua.</p>
+            <p>LogBookPKL-ku adalah sebuah aplikasi catatan harian kegiatan PKL yang bisa digunakan untuk menyimpan
+               setiap catatan kegiatan dan dokumentasi tentang kegiatan PKL.</p>
          </div>
       </div>
       <div class="scroll-top">
